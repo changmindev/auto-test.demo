@@ -1,14 +1,26 @@
-# 모바일 앱 자동화 프레임워크
+# 📱 auto-test.demo
 
-Android 앱을 대상으로 한 **Appium(UiAutomator2) 기반 Excel-Driven 자동화 프레임워크**입니다.  
+Android 앱을 대상으로 한 **Appium(UiAutomator2) 기반 Excel-Driven 자동화 프레임워크**입니다.
 Excel로 TC를 관리하고, 실행 결과를 HTML 리포트 + JSON + 스크린샷으로 저장합니다.
+
+---
+
+## 요구사항
+
+| 항목 | 버전 / 조건 |
+|------|-------------|
+| Python | 3.10 이상 |
+| Node.js / npm | Appium 2.x 설치용 |
+| Appium | 2.x (UiAutomator2 드라이버 포함) |
+| Android SDK | ADB 설치 필요 |
+| 테스트 단말 | USB 디버깅 활성화된 Android 기기 |
 
 ---
 
 ## 프로젝트 구조
 
 ```
-mobile_automation/
+auto-test.demo/
 │
 ├── main.py                  # 실행 진입점
 ├── config.py                # 모든 설정값·매핑 (여기만 수정하면 됨)
@@ -150,7 +162,7 @@ main.py
   └── utils/               ← 공통 유틸 (단방향, 순환 없음)
 ```
 
-> `utils` → `actions` → `core` → `main` 단방향 의존 구조.  
+> `utils` → `actions` → `core` → `main` 단방향 의존 구조.
 > 새 액션 추가 시 `actions/` 파일과 `core/runner.py`에 패턴 한 줄만 추가하면 됩니다.
 
 ---
@@ -161,3 +173,10 @@ main.py
 - **Appium 2.x** + UiAutomator2
 - **openpyxl** — Excel TC 파싱
 - **ADB** — logcat 수집 / keyevent 입력
+
+---
+
+## 주의사항
+
+- `testcases.xlsx`는 민감 데이터가 포함될 수 있으므로 **절대 저장소에 커밋하지 마세요** (`.gitignore` 처리됨).
+- 실제 앱 패키지명은 `config.py`의 `APP_PACKAGE`에서 직접 수정하세요.
