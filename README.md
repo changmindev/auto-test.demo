@@ -75,7 +75,34 @@ appium
 adb devices
 ```
 
-### 4. 앱을 원하는 시작 화면에 띄운 뒤 실행
+### 4. 테스트케이스 파일 준비
+
+`config.py` 의 `EXCEL_PATH` 는 `testcases.xlsx` 를 가리키는데, **이 파일은 저장소에 없습니다.**
+실제 TC 에는 앱 정보가 섞이기 쉬워 `.gitignore` 로 막아두었기 때문입니다.
+
+대신 같은 형식의 **`testcases.sample.xlsx` (10건)** 이 들어 있습니다. 복사해서 쓰면 바로 돕니다.
+
+```bash
+cp testcases.sample.xlsx testcases.xlsx
+```
+
+시트명은 `automation_TC`, 1행이 헤더입니다.
+
+| 컬럼 | 필수 | 설명 |
+|---|:---:|---|
+| `No.` | ✅ | `TC-001` 형식. `config.py` 의 `START_TC_ID`~`END_TC_ID` 로 실행 범위를 자릅니다 |
+| `전제조건` | ✅ | 이 TC 가 시작되는 화면 |
+| `테스트 항목` | ✅ | 수행할 동작. **이 문장을 파싱해 액션을 고릅니다** (아래 참고) |
+| `기대결과` | ✅ | 검증 기준. `"큰따옴표"` 안 텍스트나 `1/10` 형태를 뽑아 대조합니다 |
+| `자동화실행` | | `AUTO`(기본) · `MANUAL` · `SKIP` |
+| `자동화사유` | | 자동화하지 않은 이유 |
+| `자동화메모` | | 비고 |
+
+`테스트 항목` 문장이 곧 명령입니다 — `[저장] 버튼 탭` · `입력창에 "TestUser" 입력` ·
+`OS Back Key 수행` · `라디오 버튼 선택 - Beginner` 처럼 씁니다.
+대괄호·큰따옴표 안의 값이 대상 요소로 추출됩니다.
+
+### 5. 앱을 시작 화면에 띄운 뒤 실행
 
 ```bash
 python main.py
@@ -178,5 +205,7 @@ main.py
 
 ## 주의사항
 
-- `testcases.xlsx`는 민감 데이터가 포함될 수 있으므로 **절대 저장소에 커밋하지 마세요** (`.gitignore` 처리됨).
-- 실제 앱 패키지명은 `config.py`의 `APP_PACKAGE`에서 직접 수정하세요.
+- `testcases.xlsx` 는 민감 데이터가 섞일 수 있어 **커밋하지 마세요** (`.gitignore` 처리됨).
+  저장소에 올라가는 건 익명화된 `testcases.sample.xlsx` 뿐입니다.
+- 앱 패키지명(`APP_PACKAGE`)·시작 화면 검증 텍스트는 `config.py` 에서 바꿉니다.
+  기본값은 실제 앱이 아닌 예시(`com.example.learningapp` · `LearnApp`)입니다.
