@@ -1,2 +1,2 @@
-appium-python-client>=3.1.0
-openpyxl>=3.1.0
+appium-python-client==6.1.5
+openpyxl==3.1.5
