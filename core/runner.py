@@ -128,8 +128,10 @@ def run_step(driver, row: dict):
     test_item = row["test_item"]
     expected  = row["expected"]
 
-    if row["auto_flag"] == "SKIP":
-        raise UnsupportedStep(row["reason"] or "SKIP으로 표시됨")
+    # MANUAL 도 건너뛴다. 이 검사가 없으면 MANUAL 로 표시한 행이라도
+    # 문장이 지원 패턴과 맞으면 그대로 실행된다.
+    if row["auto_flag"] in ("SKIP", "MANUAL"):
+        raise UnsupportedStep(row["reason"] or f'{row["auto_flag"]}으로 표시됨')
 
     # 0) 키보드 닫기 버튼 탭
     if "노출된 키보드" in test_item and "탭" in test_item:
