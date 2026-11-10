@@ -199,6 +199,13 @@ main.py
 
 ---
 
+## CI
+
+실기기(Android + Appium)가 있어야 도는 저장소라 CI 러너에서 자동화 실행 자체는 돌리지 않습니다.
+`push`·PR 마다 문법 오류와 견본 TC(`testcases.sample.xlsx`) 파싱만 확인합니다.
+
+---
+
 ## 주의사항
 
 - `testcases.xlsx` 는 민감 데이터가 섞일 수 있어 커밋하지 않습니다 (`.gitignore` 처리됨).
